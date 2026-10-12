@@ -24,12 +24,15 @@ class Airline(models.Model):
 class Flight(models.Model):
     flight_num = id
     airline = models.ForeignKey(Airline,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Airline ")
-    origin = models.ForeignKey(Airport,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Origin ")
-    destination = models.ForeignKey(Airport,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Destination ")
+    origin = models.ForeignKey(Airport,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Origin ",related_name="origin_flight")
+    destination = models.ForeignKey(Airport,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Destination ",related_name="destination_flight")
     board_time = models.DateTimeField(blank=False,null=False,unique=True,verbose_name=" Board Time ")
     arrival_time = models.DateTimeField(blank=False,null=False,unique=True,verbose_name=" Arrival Time ")
-    price = models.IntegerField(max_length=9,blank=False,null=False,verbose_name=" Price ")
-    capacity = models.IntegerField(max_length=3,blank=False,null=False,verbose_name=" Capacity ")
+    price = models.IntegerField(blank=False,null=False,verbose_name=" Price ")
+    capacity = models.IntegerField(blank=False,null=False,verbose_name=" Capacity ")
+
+    def __str__(self):
+        return self.flight_num , self.airline.name , self.origin.city , self.destination.city , self.board_time , self.arrival_time , self.price , self.capacity
 
 
 STATUS_CHOICES = [
@@ -43,9 +46,12 @@ STATUS_CHOICES = [
 class Ticket(models.Model):
     passenger = models.ForeignKey(SUser,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Passenger ")
     flight = models.ForeignKey(Flight,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Flight ")
-    seat_num = models.IntegerField(max_length=3,blank=False,null=False,unique=True,verbose_name=" Seat Number ")
+    seat_num = models.IntegerField(blank=False,null=False,unique=True,verbose_name=" Seat Number ")
     booking_date = models.DateTimeField(blank=False,null=False,verbose_name=" Booking Date ",auto_now_add=True)
     status = models.CharField(max_length=100,blank=False,null=False,choices=STATUS_CHOICES,verbose_name=" Status ",default="pending")
+
+    def __str__(self):
+        return self.passenger.first_name , self.passenger.last_name , self.flight , self.seat_num , self.booking_date , self.status
 
 
 

@@ -58,13 +58,9 @@ class CancelTicketForm(forms.ModelForm):
         fields = ["status"]
 
 
-class EditTicketForm(forms.ModelForm):pass
+class EditTicketForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["flight","seat_num","booking_date"]
 
     
-
-
-
-
-
-
-
