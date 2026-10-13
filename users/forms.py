@@ -1,5 +1,7 @@
 from django import forms
 from .models import SUser
+from django.contrib.auth.hashers import make_password
+
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(label=" Password ",widget=forms.PasswordInput)
@@ -27,6 +29,14 @@ class UserRegisterForm(forms.ModelForm):
                 self.fields['role'] = "passenger"
             else:
                 pass
+
+    def save(self, commit=True):
+            user = super().save(commit=False)
+    
+            user.password = make_password(self.cleaned_data['password'])
+            if commit:
+                user.save()
+            return user        
     
 
 class EmailUserLoginForm(forms.ModelForm):
