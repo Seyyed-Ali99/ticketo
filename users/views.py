@@ -15,17 +15,58 @@ from django.db.models import Avg , Sum
 # Create your views here.
 
 class UserRegisterView(CreateView):
+    model = SUser
+    form_class = UserRegisterForm
+    template_name = "user_template/user_register.html"
+    success_url = reverse_lazy("")
+
+
+class UserEmailLoginView(View):
+    template_name = "user_email_login.html"
+
+    def get(self,request):
+        form = EmailUserLoginForm()
+        return render(request , self.template_name , {"form":form})
+
+    def post(self,request):
+        form = EmailUserLoginForm(request.post)
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate( username=username, password=password)
+
+
+            if user:
+                login(request, user)
+                return redirect("")
+
+            else:
+                messages.error(request, 'Invalid email or password.')
+
+            return render(request, self.template_name, {'form': form})
+    
+
+class UserUpdateView(LoginRequiredMixin,UpdateView):
+    model = SUser
+    form_class = UserEditForm
+    template_name = "user_template/edit_user.html"
+    success_url = reverse_lazy("")
+
+
+class UserLogoutView(LoginRequiredMixin,View):
+    login_url = 'login'
+    def get(self,request):
+        logout(request)
+        return redirect('home')
+
+class UserDeleteView(LoginRequiredMixin,DeleteView):
+    model = SUser
+    success_url = reverse_lazy("")
+    template_name = "user_template/user_delete.html"
+
+class UserDashboardView(LoginRequiredMixin,View):
     pass
 
-class UserEmailLoginView(LoginView):
+class OrdersPageView(LoginRequiredMixin,View):
     pass
-
-class UserUpdateView(UpdateView):
-    pass
-
-class UserLogoutView(LogoutView):
-    pass
-
-class UserDeleteView(DeleteView):
-    pass
-

@@ -12,31 +12,77 @@ from django.contrib import messages
 # Create your views here.
 
 class AddAirportView(LoginRequiredMixin,CreateView):
-    pass
+    model = Airport
+    form_class = AddAirportForm
+    template_name = "flight_template/add_airport.html"
+    success_url = reverse_lazy("")
+
 
 class AddAirlineView(LoginRequiredMixin,CreateView):
-    pass
+    model = Airline
+    form_class = AddAirlineForm
+    template_name = "flight_template/add_airline.html"
+    success_url = reverse_lazy("")
+
 
 class AddFlightView(LoginRequiredMixin,CreateView):
-    pass
+    model = Flight
+    form_class = AddFlightForm
+    template_name = "flight_template/add_flight.html"
+    success_url = reverse_lazy("")
+
 
 class EditAirportView(LoginRequiredMixin,UpdateView):
-    pass
+    model = Airport
+    form_class = EditAirportForm
+    template_name = "flight_template/edit_airport.html"
+    success_url = reverse_lazy("")
 
 class EditAirlineView(LoginRequiredMixin,UpdateView):
-    pass
+    model = Airline
+    form_class = EditAirlineForm
+    template_name = "flight_template/edit_airline.html"
+    success_url = reverse_lazy("")
 
 class EditFlightView(LoginRequiredMixin,UpdateView):
-    pass
+    model = Flight
+    form_class = EditFlightForm
+    template_name = "flight_template/edit_flight.html"
+    success_url = reverse_lazy("")
 
 class DeleteAirportView(LoginRequiredMixin,DeleteView):
-    pass
+    model = Airport
+    template_name = "flight_template/delete_airport.html"
+    success_url = reverse_lazy("")
+
 
 class DeleteAirlineView(LoginRequiredMixin,DeleteView):
-    pass
+    model = Airline
+    template_name = "flight_template/delete_airline.html"
+    success_url = reverse_lazy("")
 
 class DeleteFlightView(LoginRequiredMixin,DeleteView):
+    model = Flight
+    template_name = "flight_template/delete_flight.html"
+    success_url = reverse_lazy("")
+    
+class Home(View):
+    def get(self,*args,**kwargs):
+        flights = Flight.objects.filter()
+
+
+class AirlineInformationView(View):
     pass
 
-class Home(View):
+class AirlinesFlightView(View):
+    pass
+
+
+class ShowFlightView(View):
+    pass
+
+class OrderTicketView(LoginRequiredMixin,View):
+    pass
+
+class CancelTicketView(LoginRequiredMixin,View):
     pass
