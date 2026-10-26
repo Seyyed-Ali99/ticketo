@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import SUser
+from flight.models import Ticket
 from django.contrib.auth.hashers import check_password
 from django.http import HttpResponse , HttpResponseBadRequest,HttpResponseForbidden
 from .forms import UserRegisterForm , EmailUserLoginForm , UserEditForm 
@@ -22,7 +23,7 @@ class UserRegisterView(CreateView):
 
 
 class UserEmailLoginView(View):
-    template_name = "user_email_login.html"
+    template_name = "user_template/user_email_login.html"
 
     def get(self,request):
         form = EmailUserLoginForm()
@@ -48,6 +49,7 @@ class UserEmailLoginView(View):
     
 
 class UserUpdateView(LoginRequiredMixin,UpdateView):
+    login_url = ""
     model = SUser
     form_class = UserEditForm
     template_name = "user_template/edit_user.html"
@@ -61,12 +63,40 @@ class UserLogoutView(LoginRequiredMixin,View):
         return redirect('home')
 
 class UserDeleteView(LoginRequiredMixin,DeleteView):
+    login_url = ""
     model = SUser
     success_url = reverse_lazy("")
     template_name = "user_template/user_delete.html"
 
 class UserDashboardView(LoginRequiredMixin,View):
-    pass
+
+    login_url = ""
+
+    def get(self,request,*args,**kwargs):
+
+        user = SUser.objects.get(id=request.user.id)
+        if user.role == "passenger":
+            context = {"user":user}
+            return render(request,"user_template/passenger_dashboard.html",context=context)
+        elif user.role == "operator":
+            context = {"user":user}
+            return render(request,"user_template/operator_dashboard.html",context=context)
+
+        else :
+            return HttpResponseForbidden()
 
 class OrdersPageView(LoginRequiredMixin,View):
-    pass
+    login_url = ""
+    def get(self,request,*args,**kwargs):
+        orders = Ticket.objects.filter(passenger=kwargs["id"])
+        context = {"orders":orders}
+        return render(request,"user_template/passenger_orders.html",context=context)
+
+
+class OrderDetailView(LoginRequiredMixin,View):
+    login_url = ""
+
+    def get(self,request,*args,**kwargs):
+        order = Ticket.objects.get(id=kwargs["id"])
+        context = {"order":order}
+        return render(request,"user_template/passenger_order_detail.html",context=context)

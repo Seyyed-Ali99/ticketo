@@ -68,7 +68,7 @@ class DeleteFlightView(LoginRequiredMixin,DeleteView):
     
 class Home(View):
     def get(self,*args,**kwargs):
-        flights = Flight.objects.filter()
+        flights = Flight.objects.all().order_by("-id")
 
 
 class AirlineInformationView(View):
