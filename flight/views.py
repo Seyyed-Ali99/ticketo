@@ -67,19 +67,31 @@ class DeleteFlightView(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy("")
     
 class Home(View):
-    def get(self,*args,**kwargs):
+    def get(self,request,*args,**kwargs):
         flights = Flight.objects.all().order_by("-id")
+        context = {"context":context}
+        return render(request,"flight_template/home.html",context=context)
 
 
 class AirlineInformationView(View):
-    pass
+    def get(self,request,*args,**kwargs):
+        airline = Airline.objects.get(id=kwargs["id"])
+        context = {"airline":airline}
+        return render(request,"flight_template/airline_info.html",context=context)
+
 
 class AirlinesFlightView(View):
-    pass
+    def get(self,request,*args,**kwargs):
+        airline_flights = Flight.objects.filter(airline=kwargs["id"]).order_by("-id")
+        context = {"airline_flights":airline_flights}
+        return render(request,"flight_template/airline_flights.html",context=context)
 
 
 class ShowFlightView(View):
-    pass
+    def get(self,request,*args,**kwargs):
+        flight = Flight.objects.get(id=kwargs["id"])
+        context = {"flight":flight}
+        return render(request,"flight_template/show_flights.html",context=context)
 
 class OrderTicketView(LoginRequiredMixin,View):
     pass
