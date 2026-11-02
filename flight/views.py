@@ -15,56 +15,56 @@ class AddAirportView(LoginRequiredMixin,CreateView):
     model = Airport
     form_class = AddAirportForm
     template_name = "flight_template/add_airport.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 
 class AddAirlineView(LoginRequiredMixin,CreateView):
     model = Airline
     form_class = AddAirlineForm
     template_name = "flight_template/add_airline.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 
 class AddFlightView(LoginRequiredMixin,CreateView):
     model = Flight
     form_class = AddFlightForm
     template_name = "flight_template/add_flight.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 
 class EditAirportView(LoginRequiredMixin,UpdateView):
     model = Airport
     form_class = EditAirportForm
     template_name = "flight_template/edit_airport.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 class EditAirlineView(LoginRequiredMixin,UpdateView):
     model = Airline
     form_class = EditAirlineForm
     template_name = "flight_template/edit_airline.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("airline_info")
 
 class EditFlightView(LoginRequiredMixin,UpdateView):
     model = Flight
     form_class = EditFlightForm
     template_name = "flight_template/edit_flight.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("show_flight")
 
 class DeleteAirportView(LoginRequiredMixin,DeleteView):
     model = Airport
     template_name = "flight_template/delete_airport.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 
 class DeleteAirlineView(LoginRequiredMixin,DeleteView):
     model = Airline
     template_name = "flight_template/delete_airline.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
 
 class DeleteFlightView(LoginRequiredMixin,DeleteView):
     model = Flight
     template_name = "flight_template/delete_flight.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
     
 class Home(View):
     def get(self,request,*args,**kwargs):
