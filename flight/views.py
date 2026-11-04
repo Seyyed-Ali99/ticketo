@@ -12,6 +12,7 @@ from django.contrib import messages
 # Create your views here.
 
 class AddAirportView(LoginRequiredMixin,CreateView):
+    login_url = "email_login"
     model = Airport
     form_class = AddAirportForm
     template_name = "flight_template/add_airport.html"
@@ -19,6 +20,7 @@ class AddAirportView(LoginRequiredMixin,CreateView):
 
 
 class AddAirlineView(LoginRequiredMixin,CreateView):
+    login_url = "email_login"
     model = Airline
     form_class = AddAirlineForm
     template_name = "flight_template/add_airline.html"
@@ -26,6 +28,7 @@ class AddAirlineView(LoginRequiredMixin,CreateView):
 
 
 class AddFlightView(LoginRequiredMixin,CreateView):
+    login_url = "email_login"
     model = Flight
     form_class = AddFlightForm
     template_name = "flight_template/add_flight.html"
@@ -33,35 +36,41 @@ class AddFlightView(LoginRequiredMixin,CreateView):
 
 
 class EditAirportView(LoginRequiredMixin,UpdateView):
+    login_url = "email_login"
     model = Airport
     form_class = EditAirportForm
     template_name = "flight_template/edit_airport.html"
     success_url = reverse_lazy("home")
 
 class EditAirlineView(LoginRequiredMixin,UpdateView):
+    login_url = "email_login"
     model = Airline
     form_class = EditAirlineForm
     template_name = "flight_template/edit_airline.html"
     success_url = reverse_lazy("airline_info")
 
 class EditFlightView(LoginRequiredMixin,UpdateView):
+    login_url = "email_login"
     model = Flight
     form_class = EditFlightForm
     template_name = "flight_template/edit_flight.html"
     success_url = reverse_lazy("show_flight")
 
 class DeleteAirportView(LoginRequiredMixin,DeleteView):
+    login_url = "email_login"
     model = Airport
     template_name = "flight_template/delete_airport.html"
     success_url = reverse_lazy("home")
 
 
 class DeleteAirlineView(LoginRequiredMixin,DeleteView):
+    login_url = "email_login"
     model = Airline
     template_name = "flight_template/delete_airline.html"
     success_url = reverse_lazy("home")
 
 class DeleteFlightView(LoginRequiredMixin,DeleteView):
+    login_url = "email_login"
     model = Flight
     template_name = "flight_template/delete_flight.html"
     success_url = reverse_lazy("home")

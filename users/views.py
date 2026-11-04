@@ -19,7 +19,7 @@ class UserRegisterView(CreateView):
     model = SUser
     form_class = UserRegisterForm
     template_name = "user_template/user_register.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("email_login")
 
 
 class UserEmailLoginView(View):
@@ -40,7 +40,7 @@ class UserEmailLoginView(View):
 
             if user:
                 login(request, user)
-                return redirect("")
+                return redirect("home")
 
             else:
                 messages.error(request, 'Invalid email or password.')
@@ -49,32 +49,32 @@ class UserEmailLoginView(View):
     
 
 class UserUpdateView(LoginRequiredMixin,UpdateView):
-    login_url = ""
+    login_url = "email_login"
     model = SUser
     form_class = UserEditForm
     template_name = "user_template/edit_user.html"
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("user_dashboard")
 
 
 class UserLogoutView(LoginRequiredMixin,View):
-    login_url = 'login'
+    login_url = 'email_login'
     def get(self,request):
         logout(request)
         return redirect('home')
 
 class UserDeleteView(LoginRequiredMixin,DeleteView):
-    login_url = ""
+    login_url = "email_login"
     model = SUser
-    success_url = reverse_lazy("")
+    success_url = reverse_lazy("home")
     template_name = "user_template/user_delete.html"
 
 class UserDashboardView(LoginRequiredMixin,View):
 
-    login_url = ""
+    login_url = "email_login"
 
     def get(self,request,*args,**kwargs):
 
-        user = SUser.objects.get(id=request.user.id)
+        user = SUser.objects.get(id=self.request.user.id)
         if user.role == "passenger":
             context = {"user":user}
             return render(request,"user_template/passenger_dashboard.html",context=context)
@@ -86,7 +86,7 @@ class UserDashboardView(LoginRequiredMixin,View):
             return HttpResponseForbidden()
 
 class OrdersPageView(LoginRequiredMixin,View):
-    login_url = ""
+    login_url = "email_login"
     def get(self,request,*args,**kwargs):
         orders = Ticket.objects.filter(passenger=kwargs["id"])
         context = {"orders":orders}
@@ -94,7 +94,7 @@ class OrdersPageView(LoginRequiredMixin,View):
 
 
 class OrderDetailView(LoginRequiredMixin,View):
-    login_url = ""
+    login_url = "email_login"
 
     def get(self,request,*args,**kwargs):
         order = Ticket.objects.get(id=kwargs["id"])

@@ -5,13 +5,13 @@ from django.http import request
 class AddAirportForm(forms.ModelForm):
     class Meta :
         model = Airport
-        fields = ["name","city","coutry"]
+        fields = ["name","city","country"]
 
 
 class EditAirportForm(forms.ModelForm):
     class Meta :
         model = Airport
-        fields = ["name","city","coutry"]
+        fields = ["name","city","country"]
 
 
 class AddAirlineForm(forms.ModelForm):
@@ -39,7 +39,7 @@ class EditFlightForm(forms.ModelForm):
 
 
 class AddTicketForm(forms.ModelForm):
-    c_user = request.user 
+    # c_user = request.user 
 
     class Meta :
         model = Ticket
