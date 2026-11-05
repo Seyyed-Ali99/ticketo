@@ -2,7 +2,7 @@ from django.urls import path
 from .views import AddAirportView,AddAirlineView,AddFlightView,EditAirportView,EditAirlineView,EditFlightView,DeleteAirlineView,DeleteAirportView,DeleteFlightView,Home,AirlineInformationView,AirlinesFlightView,ShowFlightView
 
 urlpatterns = [
-    path("/",Home.as_view(),name="home"),
+    path(" ",Home.as_view(),name="home"),
 
     path("add_airport/",AddAirportView.as_view(),name="add_airport"),
     path("add_airline/",AddAirlineView.as_view(),name="add_airline"),

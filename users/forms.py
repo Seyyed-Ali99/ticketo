@@ -49,7 +49,7 @@ class EmailUserLoginForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
      class Meta :
           model = SUser
-          fields = ["first_name","last_name","email","national_id","passport_id","phone"]
+          fields = ["first_name","last_name","email","national_id","passport_id","phone_number"]
     
 
 

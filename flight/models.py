@@ -47,7 +47,7 @@ class Ticket(models.Model):
     passenger = models.ForeignKey(SUser,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Passenger ")
     flight = models.ForeignKey(Flight,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Flight ")
     seat_num = models.IntegerField(blank=False,null=False,unique=True,verbose_name=" Seat Number ")
-    booking_date = models.DateTimeField(blank=True,null=True,verbose_name=" Booking Date ",auto_now_add=True)
+    booking_date = models.DateTimeField(blank=True,null=True,verbose_name=" Booking Date ")
     status = models.CharField(max_length=100,blank=False,null=False,choices=STATUS_CHOICES,verbose_name=" Status ",default="pending")
 
     def __str__(self):
