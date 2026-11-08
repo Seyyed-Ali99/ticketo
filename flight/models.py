@@ -30,6 +30,7 @@ class Flight(models.Model):
     arrival_time = models.DateTimeField(blank=False,null=False,unique=True,verbose_name=" Arrival Time ")
     price = models.IntegerField(blank=False,null=False,verbose_name=" Price ")
     capacity = models.IntegerField(blank=False,null=False,verbose_name=" Capacity ")
+    airplane_model = models.CharField(max_length=50,null=False,blank=False,verbose_name="Airplane Model",default="Boeing-737")
 
     def __str__(self):
         return self.flight_num , self.airline.name , self.origin.city , self.destination.city , self.board_time , self.arrival_time , self.price , self.capacity
@@ -46,9 +47,10 @@ STATUS_CHOICES = [
 class Ticket(models.Model):
     passenger = models.ForeignKey(SUser,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Passenger ")
     flight = models.ForeignKey(Flight,on_delete=models.DO_NOTHING,blank=False,null=False,verbose_name=" Flight ")
-    seat_num = models.IntegerField(blank=False,null=False,unique=True,verbose_name=" Seat Number ")
+    # seat_num = models.IntegerField(blank=False,null=False,unique=True,verbose_name=" Seat Number ")
     booking_date = models.DateTimeField(blank=True,null=True,verbose_name=" Booking Date ")
     status = models.CharField(max_length=100,blank=False,null=False,choices=STATUS_CHOICES,verbose_name=" Status ",default="pending")
+    amount = models.IntegerField(null=False,blank=False,verbose_name="Amount",default=1)
 
     def __str__(self):
         return self.passenger.first_name , self.passenger.last_name , self.flight , self.seat_num , self.booking_date , self.status

@@ -29,13 +29,13 @@ class EditAirlineForm(forms.ModelForm):
 class AddFlightForm(forms.ModelForm):
     class Meta :
         model = Flight
-        fields = ["airline","origin","destination","board_time","arrival_time","price","capacity"]
+        fields = ["airline","origin","destination","board_time","arrival_time","price","capacity","airplane_model"]
 
 
 class EditFlightForm(forms.ModelForm):
     class Meta:
         model = Flight
-        fields = ["airline","origin","destination","board_time","arrival_time","price","capacity"]
+        fields = ["airline","origin","destination","board_time","arrival_time","price","capacity","airplane_model"]
 
 
 class AddTicketForm(forms.ModelForm):
@@ -43,7 +43,7 @@ class AddTicketForm(forms.ModelForm):
 
     class Meta :
         model = Ticket
-        fields = ["flight","seat_num","booking_date"]
+        fields = ["flight","booking_date","amount"]
 
 
 class BuyTicketForm(forms.ModelForm):
@@ -61,6 +61,6 @@ class CancelTicketForm(forms.ModelForm):
 class EditTicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ["flight","seat_num","booking_date"]
+        fields = ["flight","booking_date","amount"]
 
     
