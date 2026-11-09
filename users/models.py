@@ -37,7 +37,7 @@ class SUser(AbstractUser):
         verbose_name='user permissions',
     )
 
-    def __str__(self):
-        return self.first_name , self.last_name , self.national_id , self.email , self.passport_id , self.phone_number , self.role 
+    # def __str__(self):
+    #     return self.first_name , self.last_name , self.national_id , self.email , self.passport_id , self.phone_number , self.role 
     
 
