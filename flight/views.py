@@ -78,7 +78,7 @@ class DeleteFlightView(LoginRequiredMixin,DeleteView):
 class Home(View):
     def get(self,request,*args,**kwargs):
         flights = Flight.objects.all().order_by("-id")
-        context = {"context":context}
+        context = {"context":flights}
         return render(request,"flight_template/home.html",context=context)
 
 
